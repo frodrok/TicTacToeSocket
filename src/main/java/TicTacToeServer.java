@@ -12,17 +12,18 @@ public class TicTacToeServer {
     public static void main(String[] args) {
 
         try {
-             ServerSocket socket = new ServerSocket(27015);
+            ServerSocket socket = new ServerSocket(27015);
             Socket clientSocket = socket.accept();
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            String line;
+            out.write(boardToString());
 
+            String line;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
-                out.write(boardToString());
+
             }
 
             out.close();
@@ -31,8 +32,6 @@ public class TicTacToeServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println(boardToString());
 
     }
 
