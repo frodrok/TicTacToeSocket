@@ -20,7 +20,7 @@ public class TicTacToeServer {
                 Socket clientSocket = socket.accept();
                 try {
                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                    out.println(new Date().toString());
+                    out.println(boardToString());
                 } finally {
                     clientSocket.close();
                 }
