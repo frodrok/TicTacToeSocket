@@ -4,33 +4,32 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 public class TicTacToeServer {
 
     static char[][] board = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
+        ServerSocket socket = null;
         try {
-            ServerSocket socket = new ServerSocket(27015);
-            Socket clientSocket = socket.accept();
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            socket = new ServerSocket(27015);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-            out.write(boardToString());
-
-            String line;
-            while ((line = in.readLine()) != null) {
-                System.out.println(line);
-
+            while (true) {
+                Socket clientSocket = socket.accept();
+                try {
+                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                    out.println(new Date().toString());
+                } finally {
+                    clientSocket.close();
+                }
             }
 
-            out.close();
-            in.close();
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if (socket != null) {
+                socket.close();
+            }
         }
 
     }

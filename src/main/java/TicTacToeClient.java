@@ -12,10 +12,7 @@ public class TicTacToeClient {
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            String line;
-            while ((line = in.readLine()) != null) {
-                System.out.println(line);
-            }
+            System.out.println(in.readLine());
 
             out.write("wow");
 
