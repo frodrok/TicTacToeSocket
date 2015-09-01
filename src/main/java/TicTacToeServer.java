@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -19,8 +16,8 @@ public class TicTacToeServer {
             while (true) {
                 Socket clientSocket = socket.accept();
                 try {
-                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                    out.write(boardToString());
+                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
+                    out.print("watwat\nwatwat\nwatwat");
                 } finally {
                     clientSocket.close();
                 }
