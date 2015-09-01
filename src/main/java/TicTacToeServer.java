@@ -18,6 +18,7 @@ public class TicTacToeServer {
                 try {
                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
                     out.println("watwat\nwatwat\nwatwat");
+                    out.close();
                 } finally {
                     clientSocket.close();
                 }
