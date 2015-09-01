@@ -7,12 +7,12 @@ import java.net.Socket;
 
 public class TicTacToeServer {
 
-    char[][] board = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
+    static char[][] board = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
 
     public static void main(String[] args) {
 
         try {
-            ServerSocket socket = new ServerSocket(27015);
+             ServerSocket socket = new ServerSocket(27015);
             Socket clientSocket = socket.accept();
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
@@ -22,6 +22,7 @@ public class TicTacToeServer {
 
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
+                out.write(boardToString());
             }
 
             out.close();
@@ -31,6 +32,28 @@ public class TicTacToeServer {
             e.printStackTrace();
         }
 
+        System.out.println(boardToString());
+
+    }
+
+    static String boardToString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (j < 2) {
+                    sb.append(board[i][j] + "|");
+                } else {
+                    sb.append(board[i][j]);
+                }
+            }
+            sb.append("\n");
+            if (i < 2) {
+                sb.append("------\n");
+            }
+        }
+
+        return sb.toString();
     }
 
 }
